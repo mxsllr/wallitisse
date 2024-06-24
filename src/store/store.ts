@@ -1,7 +1,9 @@
 import { defineStore } from 'pinia'
+import { ref } from 'vue';
 
-interface SongLyrics{
-    lyrics : string
+export interface SongLyrics{
+    lyrics :string;
+    
   }
 
 export const useLyricsStore = defineStore({
@@ -13,8 +15,8 @@ export const useLyricsStore = defineStore({
 
   }),
     actions: {
-    addLyric(lyric : SongLyrics) {
-      this.lyricsTable.push(lyric)
+    addLyric(lyrics : SongLyrics): void {
+      this.lyricsTable.push(lyrics)
     },
     }
 });

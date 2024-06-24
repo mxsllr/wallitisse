@@ -9,7 +9,7 @@
       </div>
      
     </ion-toolbar>
-    <form class="searchtool"  @submit.prevent="getSuggestionSearch">
+    <form class="searchtool"  @submit.prevent="search">
       <button type="submit">
            OK
         </button>
@@ -20,7 +20,7 @@
         
       </form>
       <div class="containerlyrics" v-if="lyricsTable">
-        <p v-for="(item, index) in lyricsTable" :key="index">{{item}}</p>
+        <p v-for="(content, index) in lyricsTable" :key="index">{{content.lyrics}}</p>
 
       </div>
     
@@ -34,7 +34,8 @@
 <script setup lang="ts">
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent,IonButton } from '@ionic/vue';
 import { ref, reactive, provide } from 'vue';
-import {useLyricsStore} from '../store/store'
+import {useLyricsStore} from '../store/store';
+import {SongLyrics} from '../store/store'
 
 const lyricsStore = useLyricsStore
 const lyricsTable = ref(lyricsStore.lyricsTable);
@@ -45,7 +46,7 @@ const lyricsTable = ref(lyricsStore.lyricsTable);
 const song = ref("")
 const artist = ref("")
 
-const getSuggestionSearch = async () => {
+const getSuggestionSearch = async () : Promise<SongLyrics> => {
 
 const response = await fetch(`https://api.lyrics.ovh/v1/${artist.value}/${song.value}`, {
   headers : {
@@ -55,23 +56,18 @@ const response = await fetch(`https://api.lyrics.ovh/v1/${artist.value}/${song.v
     
   }
 })
-const lyrics = await response.json()
+const lyric = await response.json()
 
-lyricsStore.addLyric(lyrics)
+return lyric.lyrics 
+              }
+function search() : void {getSuggestionSearch()
+  .then((data :SongLyrics)=>{
+    lyricsTable.value = data
+  })
+  .catch((error: Error) => console.error(error));
 
-
-};
-
-getSuggestionSearch().catch((error) => console.error);
-
-
-
-
- 
-
-
-
-
+  console.log(lyricsTable)
+}
 </script>
 
 <style scoped>
