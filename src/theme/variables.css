@@ -1,0 +1,15 @@
+/* For information on how to create your own theme, please see:
+http://ionicframework.com/docs/theming/ */
+
+@import url('https://fonts.googleapis.com/css2?family=Jockey+One&display=swap');
+
+:root {
+	--ion-background-color: #97BE5A;
+	--ion-background-color-rgb: 151,190,90;
+	--fontJockey: "Jockey One", sans-serif;
+	--ion-red:#FF0000;
+	--ion-salmon:#FFA27F;
+	--ion-wheat:#FFE8C5;
+	
+	  
+}

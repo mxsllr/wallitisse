@@ -1,0 +1,7 @@
+{
+  "name": "wallitisse",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
